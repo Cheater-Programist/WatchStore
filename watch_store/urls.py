@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView 
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -38,6 +39,8 @@ schema_view = get_schema_view(
 
 api_urlpatterns = [
     path('', include('base.urls')),
+    path('login/', TokenObtainPairView.as_view(), name='login'),
+    path('refresh/', TokenRefreshView.as_view(), name='refresh')
 ]
 
 urlpatterns = [
