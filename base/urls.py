@@ -1,6 +1,10 @@
-from django.urls import path
-from base.views import PostAPI
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-    path('', PostAPI.as_view(), name="api_posts"),
-]  
+from base.views import PostAPI
+from users.views import UserAPI
+
+router = DefaultRouter()
+router.register('base', PostAPI, 'api_base')
+router.register('users', UserAPI, 'api_users')
+
+urlpatterns = router.urls

@@ -37,12 +37,12 @@ schema_view = get_schema_view(
 )
 
 api_urlpatterns = [
-    path('base/', include('base.urls')),
+    path('', include('base.urls')),
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(api_urlpatterns)),
+    path('', include(api_urlpatterns)),
 
     #docs
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='api_swagger'),

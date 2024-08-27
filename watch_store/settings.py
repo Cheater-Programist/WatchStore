@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-#h_b=^o)&70$y9d#44d0q48@574_)h!1up3v3-w278vqizwrwc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://720c-158-181-248-104.ngrok-free.app", "*", "720c-158-181-248-104.ngrok-free.app"]
+ALLOWED_HOSTS = ["192.168.31.250", "*", "172.25.160.1"]
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     # rest
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_yasg',
 
     # cors
@@ -47,17 +50,31 @@ INSTALLED_APPS = [
 
     # apps
     'base',
+    'users',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=70),
+}
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'watch_store.urls'
@@ -122,6 +139,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'users.User'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -139,11 +158,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
-    "https://720c-158-181-248-104.ngrok-free.app",
+    "https://49cd-158-181-248-104.ngrok-free.app",
+    "http://localhost:3000",
+    "http://192.168.31.250",
+    "http://172.25.160.1",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
@@ -159,4 +181,12 @@ CORS_ALLOW_HEADERS = [
     "origin",
     "x-csrftoken",
     "x-requested-with",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://49cd-158-181-248-104.ngrok-free.app",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://192.168.31.250",
+    "http://172.25.160.1",
 ]
