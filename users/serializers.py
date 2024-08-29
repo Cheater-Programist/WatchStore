@@ -6,14 +6,13 @@ from users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
-        fields = ('id', 'username', 'first_name', 
-                  'last_name')
+        fields = ('id', 'username', 'first_name', 'last_name', 'age', 'phone',)
         
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
-        fields = ('id', 'username', 'first_name', 
-                  'last_name', 'password', 'confirm_password')
+        fields = ('id', 'username', 'first_name', 'last_name', 'age', 'date_of_birth', 'phone',
+                   'password', 'confirm_password')
         
     def validate(self, attrs):
         if len(attrs['password']) < 8:
@@ -27,6 +26,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
+            date_of_birth=validated_data['date_of_birth'],
+            phone=validated_data['phone'],
         )
         user.set_password(validated_data['password'])
         user.save()

@@ -16,7 +16,7 @@ class UserAPI(GenericViewSet,
                 mixins.DestroyModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [UserPermission]
     authentication_classes = [JWTAuthentication]
 
     def perform_create(self, serializer):
