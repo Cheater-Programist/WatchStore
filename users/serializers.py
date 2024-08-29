@@ -4,14 +4,19 @@ import hashlib
 from users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
+    age = serializers.SerializerMethodField()
+
     class Meta:
         model = User 
         fields = ('id', 'username', 'first_name', 'last_name', 'age', 'phone',)
+
+    def get_age(self, obj):
+        return obj.age
         
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
-        fields = ('id', 'username', 'first_name', 'last_name', 'age', 'date_of_birth', 'phone',
+        fields = ('id', 'username', 'first_name', 'last_name', 'date_of_birth', 'phone',
                    'password', 'confirm_password')
         
     def validate(self, attrs):

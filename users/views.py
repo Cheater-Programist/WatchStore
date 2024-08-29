@@ -15,7 +15,7 @@ class UserAPI(GenericViewSet,
                 mixins.UpdateModelMixin,
                 mixins.DestroyModelMixin):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserSerializer(queryset)
     permission_classes = [UserPermission]
     authentication_classes = [JWTAuthentication]
 
