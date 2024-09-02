@@ -3,9 +3,9 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from users.serializers import UserSerializer, UserRegisterSerializer
-from users.permissions import UserPermission
-from users.models import User
+from apps.users.serializers import UserSerializer, UserRegisterSerializer
+from apps.users.permissions import UserPermission
+from apps.users.models import User
 
 # Create your views here.
 class UserAPI(GenericViewSet,

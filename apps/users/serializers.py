@@ -1,7 +1,7 @@
 from rest_framework import serializers
 import hashlib
 
-from users.models import User
+from apps.users.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField()

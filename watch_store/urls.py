@@ -38,7 +38,7 @@ schema_view = get_schema_view(
 )
 
 api_urlpatterns = [
-    path('', include('base.urls')),
+    path('', include('apps.base.urls')),
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path('refresh/', TokenRefreshView.as_view(), name='refresh')
 ]
