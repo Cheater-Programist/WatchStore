@@ -11,7 +11,7 @@ class Post(models.Model):
     description = models.TextField(verbose_name="Описание")
 
     def __str__(self) -> str:
-        return f"{self.user.username} || {self.title} || {self.price}"
+        return f"{self.title} || {self.price}"
     
     class Meta:
         verbose_name = 'Post'
